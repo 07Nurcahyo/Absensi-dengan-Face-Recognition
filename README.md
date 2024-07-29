@@ -1,5 +1,6 @@
 # Absensi dengan Face Recognition
 
+
 ### Kebutuhan :
 1. Ms Visual Studio (Hanya centang 'Desktop development with C++')
 2. Library python, diantaranya :
@@ -10,6 +11,7 @@
     - opencv-python    by Kvark           (v4.10.0.84)
     - setuptools                          (v71.1.0)
   3. Virtual Environtment python / venv
+
 
 ### Cara menggunakan :
 1. Masukkan gambar wajah/orang yang ingin dideteksi pada folder Images
