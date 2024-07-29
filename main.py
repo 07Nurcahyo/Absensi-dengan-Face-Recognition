@@ -7,14 +7,14 @@ import os
 # Mendeteksi file yang ada di dalam folder Images
 lokasi = 'Images' # lokasi gambar
 gambar = []
-nama = [] # list yang akan digunakan untuk menyimpan file gambar tanpa ekstensi
+namaClass = [] # list yang akan digunakan untuk menyimpan file gambar tanpa ekstensi
 myList = os.listdir(lokasi)
 # print(myList)
 for i in myList:
     currentImg = cv2.imread(f'{lokasi}/{i}')
     gambar.append(currentImg)
-    nama.append(os.path.splitext(i)[0])
-print('Nama-nama yang terdeteksi : ', nama)
+    namaClass.append(os.path.splitext(i)[0])
+print('Nama-nama yang terdeteksi : ', namaClass)
 
 
 # Fungsi pencarian encoding
@@ -26,7 +26,44 @@ def cariEncoding(gambar):
         encodeList.append(encode)
     return encodeList
 
-
 listEncoding = cariEncoding(gambar)
 print('Jumlah : ', len(listEncoding))
 print('Proses Encoding Selesai!')
+
+
+# Pencarian wajah
+kamera = cv2.VideoCapture(0)
+kamera.set(cv2.CAP_PROP_FRAME_WIDTH, 1092)
+kamera.set(cv2.CAP_PROP_FRAME_HEIGHT, 1024)
+
+def tutupKamera():
+    kamera.release()
+    cv2.destroyAllWindows()
+    exit()
+
+while True:
+    success, img = kamera.read()
+    imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+    imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
+
+    facesCurFrame = face_recognition.face_locations(imgS)
+    encodeCurFrame = face_recognition.face_encodings(imgS, facesCurFrame)
+
+    for encodeFace, faceLoc in zip(encodeCurFrame, facesCurFrame):
+        cocok = face_recognition.compare_faces(listEncoding, encodeFace)
+        jarakWajah = face_recognition.face_distance(listEncoding, encodeFace)
+        print(jarakWajah)
+        matchIndex = np.argmin(jarakWajah)
+
+        if cocok[matchIndex]:
+            nama = namaClass[matchIndex].upper()
+            print('Wajah terdeteksi : ', nama)
+            y1, x2, y2, x1 = faceLoc
+            y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
+            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.rectangle(img, (x1, y2-35), (x2, y2), (0, 255, 0), cv2.FILLED)
+            cv2.putText(img, nama, (x1+6, y2-6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+
+    cv2.imshow('Detektor Wajah', img)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        tutupKamera()
