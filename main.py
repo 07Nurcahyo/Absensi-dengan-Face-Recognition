@@ -68,7 +68,7 @@ while True:
     for encodeFace, faceLoc in zip(encodeCurFrame, facesCurFrame):
         cocok = face_recognition.compare_faces(listEncoding, encodeFace)
         jarakWajah = face_recognition.face_distance(listEncoding, encodeFace)
-        print(jarakWajah)
+        # print(jarakWajah)
         matchIndex = np.argmin(jarakWajah)
 
         if cocok[matchIndex]:
