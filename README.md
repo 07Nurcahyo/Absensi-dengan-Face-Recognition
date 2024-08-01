@@ -17,3 +17,8 @@
 1. Masukkan gambar wajah/orang yang ingin dideteksi pada folder Images
 2. Run main.py
 3. Dekatkan wajah anda ke kamera
+
+
+### Screenshot
+![gambar](https://github.com/user-attachments/assets/6152b216-e34c-4d48-87a9-3b2aad5f9a3c)
+![gambar](https://github.com/user-attachments/assets/01cd4391-965a-42d7-bfec-9684d2e438fd)
