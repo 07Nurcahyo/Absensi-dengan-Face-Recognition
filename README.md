@@ -20,5 +20,5 @@
 
 
 ### Screenshots :
-![gambar](https://github.com/user-attachments/assets/b00eafb9-9301-43bf-833b-17b71f7e813c)
+![gambar](https://github.com/user-attachments/assets/fd53b58f-57af-451a-8390-a40234718fba)
 ![gambar](https://github.com/user-attachments/assets/01cd4391-965a-42d7-bfec-9684d2e438fd)
